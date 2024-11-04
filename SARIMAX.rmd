@@ -88,23 +88,6 @@ has_gaps(energy_impute)
 # Adding step intervention to account for hurricane 
 energy_impute$hurricane <- ifelse( energy_impute$datetime_beginning_ept >= as.POSIXct("2024-09-26 00:00:00", tz = "America/New_York") & energy_impute$datetime_beginning_ept < as.POSIXct("2024-09-28 00:00:00", tz = "America/New_York"),1, 0)
 ```
-'''
-validation_4ts <- validation_4ts %>%
-  mutate(
-    hour_of_day = hour(datetime_beginning_ept), 
-    day_of_week = wday(datetime_beginning_ept, label = TRUE),  
-   avg_energy_usage = ave(mw, day_of_week, hour_of_day, FUN = mean)
-  )
-'''
-
-'''
-test_ts <- test_ts %>%
-  mutate(
-    hour_of_day = hour(datetime_beginning_ept), 
-    day_of_week = wday(datetime_beginning_ept, label = TRUE),  
-   avg_energy_usage = ave(mw, day_of_week, hour_of_day, FUN = mean)
-  )
-'''
 
 ARIMA w/ External Regressors (Hurricane point intervention and Avg energy usage by hour)
 ```{r}
